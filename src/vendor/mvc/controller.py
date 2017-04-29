@@ -129,7 +129,8 @@ class ActionController(object):
         layout = os.sep.join(['layouts', layout or self.layout])
         if controller.endswith('test'):
             return dict(view=view, layout=layout, render=kwargs)
-        render = web.template.render(os.sep.join(['app', 'views']), base=layout)
+        home_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+        render = web.template.render(os.sep.join([home_path, 'app', 'views']), base=layout)
         t = render._template(view)
         def template(**kw):
             return render._base(t(**kwargs))
